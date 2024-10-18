@@ -1,0 +1,31 @@
+html,
+body{
+    height: 100%;
+    width: 100%;
+    background-color: slateblue
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button{
+    background-color: red;
+    color: black;
+    padding: 8px 50px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    border:solid black 2px;
+    margin: 10px;
+}
+.card{
+    width: 500px;
+    height: 500px;
+    background-color: green;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
