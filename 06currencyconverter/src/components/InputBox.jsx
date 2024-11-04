@@ -1,5 +1,6 @@
-import  { useId } from 'react';
+import { useId } from 'react';
 import PropTypes from 'prop-types'; // Ensure PropTypes is imported
+
 function InputBox({
     label,
     amount,
@@ -25,8 +26,18 @@ function InputBox({
                     type="number"
                     placeholder="Amount"
                     disabled={amountDisable}
-                    value={amount}
-                    onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
+                    value={amount} // This can now be an empty string or a valid number
+                    onChange={(e) => {
+                        const newValue = e.target.value; // Capture input as a string
+                        if (newValue === '') {
+                            onAmountChange(''); // Allow clearing the input
+                        } else {
+                            const parsedValue = Number(newValue);
+                            if (!isNaN(parsedValue)) {
+                                onAmountChange(parsedValue); // Call with the parsed number
+                            }
+                        }
+                    }}
                 />
             </div>
             <div className="w-1/2 flex flex-wrap justify-end text-right">
@@ -50,7 +61,7 @@ function InputBox({
 
 InputBox.propTypes = {
     label: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
+    amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow amount to be string or number
     onAmountChange: PropTypes.func.isRequired,
     onCurrencyChange: PropTypes.func.isRequired,
     currencyOptions: PropTypes.arrayOf(PropTypes.string).isRequired, // Require the currency options
